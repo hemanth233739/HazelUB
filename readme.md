@@ -52,7 +52,7 @@ We welcome contributions! Feel free to open issues, submit pull requests, or sha
 
 ## License
 
-**Added in future**
+HazelUB is licensed under the MIT License. See the `LICENSE` file for more information.
 
 ## Support
 
