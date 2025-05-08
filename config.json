@@ -1,0 +1,9 @@
+{
+  "API_ID": "",
+  "API_HASH": "",
+  "PYROGRAM_SESSION": "",
+  "BOT_TOKEN": "",
+  "MONGO_DB_URL": "",
+  "OtherSessions": [""],
+  "quick_start": true
+}

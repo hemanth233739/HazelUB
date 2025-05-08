@@ -1,0 +1,1 @@
+from .antiscam import antiscam
