@@ -17,7 +17,7 @@ HazelUB is a powerful and flexible Telegram userbot designed to simplify your Te
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Otazuki004/HazelUB.git
+   git clone https://github.com/DevsBase/HazelUB.git
    cd HazelUB
    ```
 2. Install the required dependencies:
