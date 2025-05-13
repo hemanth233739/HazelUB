@@ -4,3 +4,4 @@ aiofiles
 motor==3.6.0
 pywa
 qrcode[pil]
+Nexgram.py

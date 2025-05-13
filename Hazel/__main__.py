@@ -13,7 +13,6 @@ caption = f"""
 ![❓](tg://emoji?id=5364286334477283372) **Support:** {Support}  
 ![⚠️](tg://emoji?id=5364241851500997604) **Channel:** {Channel}
 """
-
 if __name__ == "__main__":
   a,b,c=clear(),print(art.text2art("HazelUB"), end=""),logging.info("Connecting...")
   asyncio.get_event_loop().run_until_complete(start_all())

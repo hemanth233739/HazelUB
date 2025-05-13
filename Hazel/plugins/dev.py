@@ -9,7 +9,6 @@ import contextlib
 import asyncio
 import aiofiles
 from MultiSessionManagement import *
-from Hazel.db import *
 
 async def aexec(code, client, msg):
   m, from_user, r = msg, msg.from_user, msg.reply_to_message

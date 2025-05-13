@@ -61,4 +61,4 @@ class Init:
       "OtherSessions": data.get('OtherSessions')
     }
     if len(data.get('OtherSessions')) > 5:
-      raise ValueError("You cannot add more than 5 sessions. It will affect db and decrease performance.")
+      raise ValueError("You cannot add more than 5 sessions.")
