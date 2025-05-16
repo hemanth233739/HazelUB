@@ -12,15 +12,19 @@ from MultiSessionManagement import *
 
 async def aexec(code, client, msg):
   m, from_user, r = msg, msg.from_user, msg.reply_to_message
+  local_vars = {}
   exec(
     "async def __otazuki_run(client, message, m, r, frm, chat_id): "
     + "\n p = print"
     + "\n here = m.chat.id"
     + "".join(f"\n {l_}" for l_ in code.split("\n")),
     globals(),
-    locals(),
+    local_vars,
   )
-  return await locals()["__otazuki_run"](app, m, m, r, from_user, m.chat.id)
+  func = local_vars.get("__otazuki_run")
+  if not func:
+    raise KeyError("__otazuki_run not defined")
+  return await func(client, msg, m, r, from_user, m.chat.id)
 
 @on_message(filters.command(["e", "eval"],prefixes=HANDLER) & filters.me)
 async def eval_func(c, msg):
