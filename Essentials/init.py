@@ -2,6 +2,7 @@ import logging
 import json
 from art import *
 from clear import clear
+import ast
 log = logging.getLogger(__name__)
 
 credits = """Cretor: Otazuki
@@ -37,7 +38,8 @@ class Init:
     for k in OtherKeys:
       data[k] = config.get(k)
       if k == "OtherSessions":
-        data[k] = eval(os.getenv(k)) if isinstance(eval(os.getenv(k)), list) else None
+        data[k] = ast.literal_eval(os.getenv(k))
+        if not isinstance(data[k], list): data[k]=[]
     try:
       if not (config.get('quick_start')):
         print("Please check values below:")
