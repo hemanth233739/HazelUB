@@ -7,3 +7,4 @@ qrcode[pil]
 Nexgram.py
 tgcrypto
 requests
+google
