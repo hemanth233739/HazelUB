@@ -20,11 +20,8 @@ async def aexec(code, client, msg):
     globals(),
     locals(),
   )
-  mm = locals().get("__otazuki_run")
-  if not mm:
-    raise KeyError("__otazuki_run not defined")
-  return await __otazuki_run(client, msg, m, r, from_user, msg.chat.id)
-  
+  return await locals()["__otazuki_run"](app, m, m, r, from_user, m.chat.id)
+
 @on_message(filters.command(["e", "eval"],prefixes=HANDLER) & filters.me)
 async def eval_func(c, msg):
   if (clients_data[c.me.id].get('privilege')!='sudo'):
