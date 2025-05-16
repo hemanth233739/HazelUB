@@ -36,6 +36,8 @@ class Init:
       else: data[key] = config.get(key) or os.getenv(key)
     for k in OtherKeys:
       data[k] = config.get(k)
+      if k == "OtherSessions":
+        data[k] = eval(os.getenv(k)) if isinstance(eval(os.getenv(k)), list) else None
     try:
       if not (config.get('quick_start')):
         print("Please check values below:")
