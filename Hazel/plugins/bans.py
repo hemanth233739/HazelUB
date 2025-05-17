@@ -59,6 +59,7 @@ async def gban_func(app,message)->None:
 
 @on_message(filters.command(['ban','kick','unban'],prefixes=HANDLER)&filters.me)
 async def ban_func(c,m)->None:
+  from MultiSessionManagement import clients
   if m.reply_to_message:
     victim = m.reply_to_message.from_user.id
   elif len(m.command) >= 2:
