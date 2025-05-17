@@ -7,7 +7,7 @@ import logging
 
 log = logging.getLogger(__name__)
 
-@on_message(filters.command(['gban', 'ungban'], prefixes=HANDLER), filters.me)
+@on_message(filters.command(['gban', 'ungban'], prefixes=HANDLER) & filters.me)
 async def gban_func(c, m) -> None:
   if m.reply_to_message:
     user_id = m.reply_to_message.from_user.id
