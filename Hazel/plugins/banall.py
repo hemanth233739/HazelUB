@@ -65,4 +65,4 @@ MOD_HELP = """**⚕️ Banall**
 .ban <Reply/id> - To ban them.
 .kick <Reply/id> - To kick them.
 .unban <Reply/id> - To unban them.
-**💡 LMAO:** Don't try to test this and destroy your group!
+**💡 LMAO:** Don't try to test this and destroy your group!"""
