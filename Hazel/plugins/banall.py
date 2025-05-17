@@ -5,7 +5,7 @@ from pyrogram.types import *
 from pyrogram import enums
 import asyncio
 
-info = logging.getLogger(__name__).info
+log = logging.getLogger(__name__)
 
 async def is_admin(client, chat_id, user_id):
   member = await client.get_chat_member(chat_id, user_id)
@@ -30,23 +30,23 @@ async def gban_func(app,message)->None:
     if cmd == "unbanall":
       banned = [m.user.id for m in await app.get_chat_members(chat_id, filter=enums.ChatMembersFilter.BANNED)]
       for user_id in banned:
+        await asyncio.sleep(1.5)
         try:
           await app.unban_chat_member(chat_id, user_id)
           count += 1
-          await asyncio.sleep(1.5)
         except Exception as e:
-          info(e)
+          log.error(f"{app.me.first_name} ({app.me.id}): {e}")
       text = f"Found Banned Members: {len(banned)}\nUnbanned Successfully: {count}"
     else:
       for user_id in members:
+        await asyncio.sleep(1.5)
         try:
           await app.ban_chat_member(chat_id, user_id)
           if cmd == "kickall":
             await app.unban_chat_member(chat_id, user_id)
           count += 1
-          await asyncio.sleep(1.5)
         except Exception as e:
-          info(e)
+          log.error(f"{app.me.first_name} ({app.me.id}): {e}")
       action = "Kicked" if cmd == "kickall" else "Banned"
       text = f"Successfully {action}: {count}\nRemaining Admins: {len(admins)}"
     await message.reply(text)
@@ -55,7 +55,7 @@ async def gban_func(app,message)->None:
     if "CHAT_ADMIN_REQUIRED" in str(e):
       return await message.reply("You cannot. Because you do not have enough privileges")
     await message.reply(f"**Error:** {e}")
-    info(e)
+    log.error(f"{app.me.first_name} ({app.me.id}): {e}")
 
 @on_message(filters.command(['ban','kick','unban'],prefixes=HANDLER)&filters.me)
 async def ban_func(c,m)->None:
@@ -66,6 +66,7 @@ async def ban_func(c,m)->None:
     try: victim = (await c.get_users(user_id)).id
     except: return await m.reply('Cannot find them. make sure your id is correct!')
   else: return await m.reply(f"Okay, i'll {m.command[0]}. But who?")
+  here = m.chat.id
   if (m.command[0] in ['ban','kick']):
     try:
       await c.ban_chat_member(here,victim)
