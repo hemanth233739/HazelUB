@@ -12,7 +12,7 @@ async def is_admin(client, chat_id, user_id):
   return member.status in [enums.ChatMemberStatus.ADMINISTRATOR, enums.ChatMemberStatus.OWNER]
 
 @on_message(filters.command(["unbanall", "banall", "kickall"], prefixes=HANDLER) & filters.me)
-async def mass_action(app, message):
+async def gban_func(app,message)->None:
   user_id, chat_id = message.from_user.id, message.chat.id
   if not await is_admin(app, chat_id, user_id):
     return await message.reply('You should be an admin to do this.')
@@ -33,7 +33,7 @@ async def mass_action(app, message):
         try:
           await app.unban_chat_member(chat_id, user_id)
           count += 1
-          await asyncio.sleep(1.2)
+          await asyncio.sleep(1.5)
         except Exception as e:
           info(e)
       text = f"Found Banned Members: {len(banned)}\nUnbanned Successfully: {count}"
@@ -44,7 +44,7 @@ async def mass_action(app, message):
           if cmd == "kickall":
             await app.unban_chat_member(chat_id, user_id)
           count += 1
-          await asyncio.sleep(1.2)
+          await asyncio.sleep(1.5)
         except Exception as e:
           info(e)
       action = "Kicked" if cmd == "kickall" else "Banned"
@@ -56,6 +56,42 @@ async def mass_action(app, message):
       return await message.reply("You cannot. Because you do not have enough privileges")
     await message.reply(f"**Error:** {e}")
     info(e)
+
+@on_message(filters.command(['ban','kick','unban'],prefixes=HANDLER)&filters.me)
+async def ban_func(c,m)->None:
+  if m.reply_to_message:
+    victim = m.reply_to_message.from_user.id
+  elif len(m.command) >= 2:
+    victim = str(m.command[1])
+    try: victim = (await c.get_users(user_id)).id
+    except: return await m.reply('Cannot find them. make sure your id is correct!')
+  else: return await m.reply(f"Okay, i'll {m.command[0]}. But who?")
+  if (m.command[0] in ['ban','kick']):
+    try:
+      await c.ban_chat_member(here,victim)
+      if (m.command[0] == 'kick'): await c.unban_chat_member(here,victim)
+      return await m.reply("Banned." if m.command[0] == 'ban' else "Kicked.")
+    except:
+      if c.me.id == app.me.id:
+        for cl in clients:
+          try:
+            await cl.ban_chat_member(here,victim)
+            if (m.command[0] == 'kick'): await cl.unban_chat_member(here,victim)
+            return await m.reply("Banned." if m.command[0] == 'ban' else "Kicked.")
+          except: pass
+      return await m.reply("Failed.")
+  else:
+    try:
+      await c.unban_chat_member(here,victim)
+      return await m.reply("Unbanned.")
+    except:
+      if c.me.id == app.me.id:
+        for cl in clients:
+          try:
+            await cl.unban_chat_member(here,victim)
+            return await m.reply("Unbanned.")
+          except: pass
+      return await m.reply("Failed.")
 
 MOD_NAME = 'Bans'
 MOD_HELP = """**⚕️ Banall**
