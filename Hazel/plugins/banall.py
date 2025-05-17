@@ -15,38 +15,40 @@ async def is_admin(client, chat_id, user_id):
 async def mass_action(app, message):
   user_id, chat_id = message.from_user.id, message.chat.id
   if not await is_admin(app, chat_id, user_id):
-    return
+    return await message.reply('You should be an admin to do this.')
   if message.chat.type == enums.ChatType.PRIVATE:
     return await message.reply("This Command Only works in Groups!")
-
+  if not (await app.get_chat_member(chat_id, app.me.id)).privileges.can_restrict_members:
+    return await message.reply("I cannot. i don't have permission bro.")
   cmd = message.command[0]
   try:
     msg = await message.reply("Processing...")
-    banned, count = [], 0
-
+    admins, members, count = [], [], 0
+    async for m in app.get_chat_members(chat_id):
+      if m.privileges: admins.append(m.user.id)
+      else: members.append(m.user.id)
     if cmd == "unbanall":
-      async for m in app.get_chat_members(chat_id, filter=enums.ChatMembersFilter.BANNED):
-        banned.append(m.user.id)
+      banned = [m.user.id for m in await app.get_chat_members(chat_id, filter=enums.ChatMembersFilter.BANNED)]
+      for user_id in banned:
         try:
-          await app.unban_chat_member(chat_id, m.user.id)
+          await app.unban_chat_member(chat_id, user_id)
           count += 1
           await asyncio.sleep(1.2)
-        except: pass
+        except Exception as e:
+          info(e)
       text = f"Found Banned Members: {len(banned)}\nUnbanned Successfully: {count}"
-
     else:
-      async for m in app.get_chat_members(chat_id):
-        if not m.privileges:
-          banned.append(m.user.id)
-          try:
-            await app.ban_chat_member(chat_id, m.user.id)
-            if cmd == "kickall":
-              await app.unban_chat_member(chat_id, m.user.id)
-            count += 1
-            await asyncio.sleep(1.2)
-          except: pass
+      for user_id in members:
+        try:
+          await app.ban_chat_member(chat_id, user_id)
+          if cmd == "kickall":
+            await app.unban_chat_member(chat_id, user_id)
+          count += 1
+          await asyncio.sleep(1.2)
+        except Exception as e:
+          info(e)
       action = "Kicked" if cmd == "kickall" else "Banned"
-      text = f"Successfully {action}: {count}\nRemaining Admins: {len(banned)}"
+      text = f"Successfully {action}: {count}\nRemaining Admins: {len(admins)}"
     await message.reply(text)
     await msg.delete()
   except Exception as e:
