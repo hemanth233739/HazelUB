@@ -63,7 +63,7 @@ async def ban_func(c,m)->None:
     victim = m.reply_to_message.from_user.id
   elif len(m.command) >= 2:
     victim = str(m.command[1])
-    try: victim = (await c.get_users(user_id)).id
+    try: victim = (await c.get_users(victim)).id
     except: return await m.reply('Cannot find them. make sure your id is correct!')
   else: return await m.reply(f"Okay, i'll {m.command[0]}. But who?")
   here = m.chat.id
