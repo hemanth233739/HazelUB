@@ -19,28 +19,29 @@ async def gban_func(app,message)->None:
   if message.chat.type == enums.ChatType.PRIVATE:
     return await message.reply("This Command Only works in Groups!")
   if not (await app.get_chat_member(chat_id, app.me.id)).privileges.can_restrict_members:
-    return await message.reply("I cannot. i don't have permission bro.")
+    return await message.reply("I cannot. I don't have permission bro.")
   cmd = message.command[0]
   try:
     msg = await message.reply("Processing...")
     admins, members, count = [], [], 0
     async for m in app.get_chat_members(chat_id):
-      if m.privileges: admins.append(m.user.id)
-      else: members.append(m.user.id)
+      if m.privileges: 
+        admins.append(m.user.id)
+      else: 
+        members.append(m.user.id)
     if cmd == "unbanall":
-      banned = [m.user.id for m in await app.get_chat_members(chat_id, filter=enums.ChatMembersFilter.BANNED)]
-      for user_id in banned:
-        await asyncio.sleep(1.5)
+      async for m in app.get_chat_members(chat_id, filter=enums.ChatMembersFilter.BANNED):
         try:
-          await app.unban_chat_member(chat_id, user_id)
+          await asyncio.sleep(1.5)
+          await app.unban_chat_member(chat_id, m.user.id)
           count += 1
         except Exception as e:
           log.error(f"{app.me.first_name} ({app.me.id}): {e}")
-      text = f"Found Banned Members: {len(banned)}\nUnbanned Successfully: {count}"
+      text = f"Found Banned Members: {count}\nUnbanned Successfully: {count}"
     else:
       for user_id in members:
-        await asyncio.sleep(1.5)
         try:
+          await asyncio.sleep(1.5)
           await app.ban_chat_member(chat_id, user_id)
           if cmd == "kickall":
             await app.unban_chat_member(chat_id, user_id)
@@ -66,7 +67,7 @@ async def ban_func(c,m)->None:
     victim = str(m.command[1])
     try: victim = (await c.get_users(victim)).id
     except: return await m.reply('Cannot find them. make sure your id is correct!')
-  else: return await m.reply(f"Okay, i'll {m.command[0]}. But who?")
+  else: return await m.reply(f"Okay, I'll {m.command[0]}. But who?")
   here = m.chat.id
   if (m.command[0] in ['ban','kick']):
     try:
