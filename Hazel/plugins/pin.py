@@ -18,13 +18,12 @@ async def pin_unpin(app, message):
     try:
       await message.delete()
       await ser_msg.delete()
-    except: pass
+    except:pass
   except Exception as e:
     if "FLOOD_WAIT" in str(e):
       await asyncio.sleep(int(str(e).split()[8]))
       await action(chat.id, message.reply_to_message.id)
-    else:
-      await message.reply(f"**Error:** `{e}`")
+    else: await message.reply(f"**Error:** `{e}`")
 
-MOD_NAME = 'Pin'
+MOD_NAME = 'Pins'
 MOD_HELP = ".pin (reply) - To pin the replied message!\n.unpin (reply) - To unpin the replied message!"
