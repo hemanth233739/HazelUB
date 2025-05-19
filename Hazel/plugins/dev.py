@@ -86,7 +86,7 @@ async def shell(c, message):
 @on_message(filters.command(["log", "logs", "flog", "flogs"], prefixes=HANDLER) & filters.me)
 async def log(c, m):
   if (clients_data[c.me.id].get('privilege')!='sudo'):
-    return await msg.reply("You don't have permisson.")
+    return await m.reply("You don't have permisson.")
   x = await m.reply("Processing...")
   async with aiofiles.open("log.txt", mode="r") as l:
     xx = await l.read()
@@ -98,7 +98,7 @@ async def log(c, m):
 @on_message(filters.command("restart", prefixes=HANDLER) & filters.me)
 async def restart_func(c, message):
   if (clients_data[c.me.id].get('privilege')!='sudo'):
-    return await msg.reply("You don't have permisson.")  
+    return await message.reply("You don't have permisson.")  
   await message.reply("Restarting...")
   from restart import restart
   restart()

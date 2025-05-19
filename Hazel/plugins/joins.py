@@ -1,7 +1,7 @@
 from .. import *
 from pyrogram import *
 
-@on_message(filters.command(['join','leave'])&filters.me)
+@on_message(filters.command(['join','leave'], prefixes=HANDLER) & filters.me)
 async def joins_func(app,m):
   if (len(m.command) < 2 and m.command[0]=='leave' and m.chat.type not in [enums.ChatType.BOT,enums.ChatType.PRIVATE]):
     i=await m.reply('Yeah, we should not be in a shitty place.')
