@@ -94,3 +94,11 @@ async def log(c, m):
     await m.reply_document("log.txt")
   else: await m.reply(f"<pre>{xx[-2000:]}</pre>", parse_mode=ParseMode.HTML)
   await x.delete()
+
+@on_message(filters.command("restart", prefixes=HANDLER) & filters.me)
+async def restart_func(c, message):
+  if (clients_data[c.me.id].get('privilege')!='sudo'):
+    return await msg.reply("You don't have permisson.")  
+  await message.reply("Restarting...")
+  from restart import restart
+  restart()
