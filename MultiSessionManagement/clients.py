@@ -19,7 +19,7 @@ async def start_all():
   for client in clients:
     try:
       await client.start()
-      clients_data[client.me.ild] = {"client": client, "privilege": f"{'sudo' if client == clients[0] else 'user'}"}
+      clients_data[client.me.id] = {"client": client, "privilege": f"{'sudo' if client == clients[0] else 'user'}"}
     except: clients.remove(client)
   from Essentials.vars import AutoJoinChats, Support
   for app in clients:
