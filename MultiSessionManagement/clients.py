@@ -4,22 +4,27 @@ from art import *
 from pyrogram import *
 from clear import clear
 import asyncio
+from pytgcalls import PyTgCalls
 
-clients,clients_data=[],{}
+clients, clients_data = [],{}
+TgCallsClients = []
+
 def add_client(client):
   global clients,clients_data
   if client not in clients:
     clients.append(client)
 
 async def start_all():
-  global clients_data
+  global clients_data,TgCallsClients
   from Hazel import bot,nexbot
   await bot.start()
   await nexbot.start()
   for client in clients:
     try:
       await client.start()
-      clients_data[client.me.id] = {"client": client, "privilege": f"{'sudo' if client == clients[0] else 'user'}"}
+      pytgcalls_client = PyTgCalls(client)
+      clients_data[client.me.id] = {"client": client, "pytgcalls_client": pytgcalls_client,"privilege": f"{'sudo' if client == clients[0] else 'user'}"}
+      TgCallsClients.append(pytgcalls_client)
     except: clients.remove(client)
   from Essentials.vars import AutoJoinChats, Support
   for app in clients:
