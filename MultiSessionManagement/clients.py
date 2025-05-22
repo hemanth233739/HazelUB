@@ -17,8 +17,10 @@ async def start_all():
   await bot.start()
   await nexbot.start()
   for client in clients:
-    await client.start()
-    clients_data[client.me.id] = {"client": client, "privilege": f"{'sudo' if client == clients[0] else 'user'}"}
+    try:
+      await client.start()
+      clients_data[client.me.ild] = {"client": client, "privilege": f"{'sudo' if client == clients[0] else 'user'}"}
+    except: await client.stop(), clients.remove(client)
   from Essentials.vars import AutoJoinChats, Support
   for app in clients:
     for i in AutoJoinChats:
