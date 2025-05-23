@@ -1,6 +1,7 @@
 from .. import *
 from pyrogram import *
 import asyncio, aiofiles.os
+from MultiSessionManagement import *
 
 async def WaitForFile(f):
   return await aiofiles.os.path.exists(f) or await asyncio.sleep(0.1) or await WaitForFile(f)
