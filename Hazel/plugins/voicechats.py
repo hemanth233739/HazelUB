@@ -14,4 +14,7 @@ async def leavevc(c,m):
   try:
     await pytgcalls_client.leave_call(m.chat.id)
     await m.reply("left from the vc.")
-  except: await m.reply("client isn't in a vc to leave.")
+  except:
+    await pytgcalls_client.play(m.chat.id)
+    await pytgcalls_client.leave_call(m.chat.id)
+    await m.reply("left from the vc.")

@@ -17,8 +17,8 @@ async def joins_func(app,m):
     except: return await m.reply('Failed. (Probably this is an issue with the link you provied.)')
   else:
     try:
-      await app.leave_chat(link)
       await m.reply('leaved.')
+      await app.leave_chat(link)     
     except: return await m.reply('Failed. (Probably this is an issue with the link you provied.)')
       
 MOD_NAME = "Joins"
