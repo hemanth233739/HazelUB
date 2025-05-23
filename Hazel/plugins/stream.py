@@ -13,10 +13,12 @@ async def stream_func(c,m):
   pytgcalls_client = clients_data[c.me.id]["pytgcalls_client"]
   chat=str(m.command[1])
   try: chat = await c.get_chat(chat)
-  except: return await m.reply("Failed.")
+  except Exception as e: return await m.reply(f"Failed: {e}.")
   if chat.type not in [enums.ChatType.GROUP,enums.ChatType.SUPERGROUP]:
     return await m.reply('Please give only group/supergroup id.')
   file_name = f"chat{chat.id}-recording.mp3"
+  try: await aiofiles.os.remove(file_name)
+  except: pass
   await pytgcalls_client.record(chat.id,file_name)
   await WaitForFile(file_name)
   try:
