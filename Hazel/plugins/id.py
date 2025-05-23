@@ -10,24 +10,24 @@ async def id(_, m):
     no_reply += f"**Chat ID**: `{m.chat.id}`\n"
     no_reply += f"**Message ID**: `{m.id}`"
     await m.reply(text=(no_reply))
-  if reply.from_user:
+  if reply and reply.from_user:
     _reply += f"**Your ID**: `{m.from_user.id}`\n"
     _reply += f"**Replied User ID**: `{reply.from_user.id}`\n"
     _reply += f"**Chat ID**: `{m.chat.id}`\n"
     _reply += f"**Replied Message ID**: `{reply.id}`\n"
-  if reply.sender_chat:
+  if reply and reply.sender_chat:
     _reply += f"\n**Channel ID**: `{reply.sender_chat.id}`\n"
-  if reply.sticker:
+  if reply and reply.sticker:
     _reply += f"**Sticker ID**: `{reply.sticker.file_id}`"
-  elif reply.animation:
+  elif reply and reply.animation:
     _reply += f"**Animation ID**: `{reply.animation.file_id}`"
-  elif reply.document:
+  elif reply and reply.document:
     _reply += f"**Document ID**: `{reply.document.file_id}`"
-  elif reply.audio:
+  elif reply and reply.audio:
     _reply += f"**Audio ID**: `{reply.audio.file_id}`"
-  elif reply.video:
+  elif reply and reply.video:
     _reply += f"**Video ID**: `{reply.video.file_id}`"
-  elif reply.photo:
+  elif reply and reply.photo:
     _reply += f"**Photo ID**: `{reply.photo.file_id}`"
   await reply.reply(_reply)
   await m.delete()

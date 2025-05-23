@@ -11,5 +11,7 @@ async def joinvc(c,m):
 @on_message(filters.command('leavevc', prefixes=HANDLER)&filters.me&filters.group)
 async def leavevc(c,m):
   pytgcalls_client = clients_data[c.me.id]["pytgcalls_client"]
-  await pytgcalls_client.leave_call(m.chat.id)
-  await m.reply("left from the vc.")  
+  try:
+    await pytgcalls_client.leave_call(m.chat.id)
+    await m.reply("left from the vc.")
+  except: await m.reply("client isn't in a vc to leave.")
