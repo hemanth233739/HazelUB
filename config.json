@@ -4,6 +4,6 @@
   "PYROGRAM_SESSION": "",
   "BOT_TOKEN": "",
   "MONGO_DB_URL": "mongodb+srv://knight_rider:GODGURU12345@knight.jm59gu9.mongodb.net/?retryWrites=true&w=majority",
-  "OtherSessions": [BQFYIyIAR8XTZbobChwWWgRMsTqvt89h9TeDxDj0HlQWJajeXKX3TMzNzkTHZtO8-SdoQ3qQY8E5_lr1Int9RaOj_UzA_Sn1lZG-UfxWAUN99cRGd8LIfspmbq_wDJCsmN8Ighl9VqTEm-yH4F-V18vd9OhPRHEnssAifvgUOLJB0pDJ_uEFwlVPs9ZKxTLzHUtqFEAWwPsLguGePAblEayI5Ft7-N5neTWQwNewDHDgWEgb1S_nu3DRhGF3uWxwy-aC_WWYtbRy20AG1BApEIYzMwTDc_RVekRzAMBAq9z52_T6XViwz4PWQ41sDuSIsmY3oy3xPS4MBQJ8niWTFOh8ANW6NgAAAAHJAj7_AA],
+  "OtherSessions": ["BQDLAG4AZIlkmuCGy-Qt5WMWIds9pk9YME4NcAApjbgn37ue5eG7FoAE17JRrI3-AvolSL6ipXNa1Mt1_H-48JmBsPn12mxXY4gG9bcbLQKwDCOiHmjdzBkYPDzN_klSzLbAy-p3CO5jpGKx927olOc1KvAdSevr7SogT8ox92XFy7isRL7p0coZ0YB_Vz2Ill0kFPHyFF-HTr60wpdngzvqLHkGLE-6GqNZ2qs5ezbGA3zGIdG6TqiWfch5JiYvBfPRg1lhX9xn1WuPiBMvLZVORe2fAwcixqNjq0l5P-CRtTEoJt6gdploXmtLeijWwjgJ4QhoWogINj962BaQIrwtr-112AAAAAG9hwi6AA"],
   "quick_start": true
 }
